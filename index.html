@@ -3,94 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday, Rishita 🎉</title>
+  <title>Happy Birthday, Rishita 💖</title>
   <style>
     body {
-      background-color: #fff0f5;
+      margin: 0;
+      background: url('rishita.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
       font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+      backdrop-filter: brightness(0.6); /* dim background slightly */
+    }
+
+    #messageBox {
+      position: absolute;
+      top: 20%;
+      width: 100%;
       text-align: center;
-      padding: 40px 20px;
+      font-size: 22px;
+      padding: 0 20px;
     }
-    h1 {
-      color: #ff1493;
-      font-size: 42px;
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
     }
+
     p {
-      font-size: 20px;
-      color: #555;
+      margin: 12px 0;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
     }
-    .hidden {
-      display: none;
-    }
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    button:hover {
-      background-color: #ff1493;
-    }
-    pre {
-      white-space: pre-wrap;
-      text-align: left;
-      font-size: 18px;
-      margin-top: 30px;
-      color: #333;
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-  <h1>Happy Birthday, Rishita! 🎂</h1>
-  <p>Hey beautiful, click the button for a special surprise 💖</p>
+<canvas id="fireworks"></canvas>
+<div id="messageBox"></div>
 
-  <button onclick="revealPoem()">Click Me</button>
+<script>
+  const wishes = [
+    "🎉 Happy Birthday, Rishita! 💖",
+    "Biiiiii……, today is your magical day ✨",
+    "On this day, an angel was born — and that angel is you 🌸",
+    "You’re not just special — you are my heart, my dream, my forever 💘",
+    "I promise to love you, care for you, and stand by you, always 💍",
+    "You are the reason I smile, the reason I wake up with hope ☀️",
+    "My life is complete with you, and I’ll never let you feel alone 🤝",
+    "I’ll protect you, support you, and love you more with every breath 🛡️❤️",
+    "You're mine, Biiiiii…… and I’m yours — forever and ever 💞",
+    "No matter what, I’m with you — through every up, down, and beyond 🛤️",
+    "Love me forever, as I’ll love you endlessly, my Biiiiii…… 💘",
+    "I thank the stars for you every single night 🌌",
+    "This life, this love, this bond — it’s meant to last forever 🕊️",
+    "Love you, Biiiiii…… 💖 Happy Birthday once again! 🎂🥳",
+    "Forever yours, with all my heart — By Your Tamocha…… 💌"
+  ];
 
-  <div id="poem" class="hidden">
-    <pre>
-To Rishita, on your special day,
-A heart so warm, in every way.
-With every smile, the world feels right,
-Like morning sun through soft twilight.
+  let index = 0;
+  const box = document.getElementById("messageBox");
 
-A gentle soul, so full of grace,
-You light up dreams with just your face.
-The stars above seem to align,
-Each one whispering, "You're divine."
-
-On this day, I wish you joy,
-A love so deep, no pain can destroy.
-Laughter in echoes, soft as rain,
-May happiness forever remain.
-
-For all you are, and all you do,
-This world feels brighter just with you.
-So close your eyes and make a wish,
-This life is yours — a magic dish.
-
-Happy Birthday, my dearest star,
-No matter near, no matter far.
-Know that my heart, in every way,
-Is cheering you on, every day.
-
-Love you, Rishita. Happy Birthday! 🎂💖
-    </pre>
-  </div>
-
-  <script>
-    function revealPoem() {
-      document.getElementById("poem").classList.remove("hidden");
+  function showNextWish() {
+    if (index < wishes.length) {
+      const line = document.createElement("p");
+      line.textContent = wishes[index++];
+      box.appendChild(line);
+      setTimeout(showNextWish, 2300);
     }
-  </script>
+  }
+
+  setTimeout(showNextWish, 1500);
+
+  // Fireworks animation
+  const canvas = document.getElementById('fireworks');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let fireworks = [];
+
+  function random(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  function createFirework() {
+    let particles = [];
+    const colors = ['#ff0080', '#ffcc00', '#00ffff', '#ff6600', '#66ff66'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const x = random(100, canvas.width - 100);
+    const y = random(100, canvas.height / 2);
+    for (let i = 0; i < 50; i++) {
+      particles.push({
+        x: x,
+        y: y,
+        vx: random(-3, 3),
+        vy: random(-3, 3),
+        alpha: 1,
+        color: color
+      });
+    }
+    fireworks.push(particles);
+  }
+
+  function animate() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    fireworks.forEach((firework, index) => {
+      firework.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.01;
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      if (firework[0].alpha <= 0) {
+        fireworks.splice(index, 1);
+      }
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animate);
+  }
+
+  setInterval(createFirework, 1000);
+  animate();
+
+  window.onresize = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  };
+</script>
 
 </body>
 </html>
