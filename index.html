@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Happy Birthday, Rishita 🎂</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, Rishita 🎉</title>
   <style>
     body {
       background-color: #fff0f5;
@@ -13,31 +13,24 @@
     }
     h1 {
       color: #ff1493;
-      font-size: 48px;
+      font-size: 42px;
     }
     p {
-      font-size: 22px;
+      font-size: 20px;
       color: #555;
     }
     .hidden {
       display: none;
     }
-    .balloon {
-      font-size: 40px;
-      animation: float 2s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
     button {
-      padding: 12px 25px;
+      padding: 12px 24px;
       font-size: 18px;
       background-color: #ff69b4;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      margin-top: 20px;
     }
     button:hover {
       background-color: #ff1493;
@@ -45,21 +38,24 @@
     pre {
       white-space: pre-wrap;
       text-align: left;
-      font-size: 20px;
+      font-size: 18px;
       margin-top: 30px;
-      color: #444;
+      color: #333;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
 
-  <div class="balloon">🎈🎂🎉</div>
-  <h1>Happy Birthday, Rishita!</h1>
-  <p>Hey beautiful, click the button for a little surprise! 💖</p>
+  <h1>Happy Birthday, Rishita! 🎂</h1>
+  <p>Hey beautiful, click the button for a special surprise 💖</p>
 
-  <button id="revealBtn">Click Me</button>
+  <button onclick="revealPoem()">Click Me</button>
 
-  <div id="surprise" class="hidden">
+  <div id="poem" class="hidden">
     <pre>
 To Rishita, on your special day,
 A heart so warm, in every way.
@@ -73,4 +69,28 @@ Each one whispering, "You're divine."
 
 On this day, I wish you joy,
 A love so deep, no pain can destroy.
-Laughter in echoes, soft
+Laughter in echoes, soft as rain,
+May happiness forever remain.
+
+For all you are, and all you do,
+This world feels brighter just with you.
+So close your eyes and make a wish,
+This life is yours — a magic dish.
+
+Happy Birthday, my dearest star,
+No matter near, no matter far.
+Know that my heart, in every way,
+Is cheering you on, every day.
+
+Love you, Rishita. Happy Birthday! 🎂💖
+    </pre>
+  </div>
+
+  <script>
+    function revealPoem() {
+      document.getElementById("poem").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
